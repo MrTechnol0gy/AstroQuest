@@ -11,12 +11,12 @@ public class PressurePlateTrigger : MonoBehaviour
         plate = GetComponentInParent<PressurePlate>();
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PlateTrigger")) plate.triggered = true;
+        if (other.CompareTag("Player") || other.CompareTag("PlateTrigger")) plate.Trigger();
     }
-    private void OnCollisionExit(UnityEngine.Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PlateTrigger")) plate.triggered = false;
+        if (other.CompareTag("Player") || other.CompareTag("PlateTrigger")) plate.UnTrigger();
     }
 }

@@ -32,7 +32,7 @@ public class ShipControl : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI thrustText;
     public Camera camera;
-    public Image targettingIcon;
+    public Image targetingIcon;
 
     [Header("Combat")]
     public int HP;
@@ -49,6 +49,8 @@ public class ShipControl : MonoBehaviour
     public float aimingSize;
     public float aimingDist;
 
+    public EnemyShip target;
+
     private int collisions = 0;
 
     // Start is called before the first frame update
@@ -64,6 +66,15 @@ public class ShipControl : MonoBehaviour
         if (currentThrust < minThrust) currentThrust = minThrust;
         else if (currentThrust > maxThrust) currentThrust = maxThrust;
         thrustText.text = currentThrust.ToString();
+
+        if(target != null)
+        {
+            targetingIcon.rectTransform.position = camera.WorldToScreenPoint(target.transform.position);
+            if (Input.GetButton("Fire"))
+            {
+                target.Die();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -86,19 +97,17 @@ public class ShipControl : MonoBehaviour
         transform.Rotate(pitch, yaw, roll);
 
         RaycastHit sphereHit;
-        if(Physics.SphereCast(camera.transform.position, aimingSize, camera.transform.forward, out sphereHit, aimingDist))
+        target = null;
+        if(Physics.SphereCast(camera.transform.position, aimingSize, camera.transform.forward, out sphereHit, aimingDist, LayerMask.GetMask("Enemy")))
         {
             if (sphereHit.collider.gameObject.CompareTag("EnemyShip"))
             {
-                EnemyShip target = sphereHit.collider.gameObject.GetComponent<EnemyShip>();
+                target = sphereHit.collider.gameObject.GetComponent<EnemyShip>();
                 //target.Die();
             }
         }
 
-        if (Input.GetButton("Fire"))
-        {
-
-        }
+        
 
         //Ship Go Forward
         rb.velocity = (transform.forward * currentThrust) + (transform.up * elevation);

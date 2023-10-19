@@ -33,6 +33,8 @@ public class ShipControl : MonoBehaviour
     public TextMeshProUGUI thrustText;
     public Camera camera;
     public Image targetingIcon;
+    public Image targetGoBackTo;
+    public TextMeshProUGUI HPText;
 
     [Header("Combat")]
     public int HP;
@@ -57,6 +59,7 @@ public class ShipControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        HPText.text = HP.ToString() + "/" + MaxHP.ToString();
     }
 
     private void Update()
@@ -65,7 +68,12 @@ public class ShipControl : MonoBehaviour
         currentThrust += Input.mouseScrollDelta.y * 2;
         if (currentThrust < minThrust) currentThrust = minThrust;
         else if (currentThrust > maxThrust) currentThrust = maxThrust;
-        thrustText.text = currentThrust.ToString();
+        thrustText.text = currentThrust.ToString() + " km/h";
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            TakeDMG(1);
+        }
 
         if(target != null)
         {
@@ -74,6 +82,10 @@ public class ShipControl : MonoBehaviour
             {
                 target.Die();
             }
+        }
+        else
+        {
+            targetingIcon.rectTransform.position = targetGoBackTo.rectTransform.position;
         }
     }
 
@@ -107,11 +119,21 @@ public class ShipControl : MonoBehaviour
             }
         }
 
-        
-
         //Ship Go Forward
         rb.velocity = (transform.forward * currentThrust) + (transform.up * elevation);
 
+    }
+
+    public void TakeDMG(int dmg)
+    {
+        HP -= dmg;
+        HPText.text = HP.ToString() + "/" + MaxHP.ToString();
+        if (HP <= 0)
+        {
+            HP = 0;
+            HPText.text = HP.ToString() + "/" + MaxHP.ToString();
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -55,6 +55,11 @@ public class ShipControl : MonoBehaviour
 
     private int collisions = 0;
 
+    [Header("Upgrades")]
+    public int resourcesHave;
+    public int shieldRank;
+    public int engineRank;
+
     // Start is called before the first frame update
     void Start()
     {

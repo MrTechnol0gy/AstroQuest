@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CinemachineTarget
+  - InteractZone
+  - firstCamera
+  - thirdCamera
+  - firstBrain
+  - thirdBrain
   layers:
   - Default
   - TransparentFX

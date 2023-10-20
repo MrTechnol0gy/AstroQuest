@@ -13,7 +13,7 @@ public class CameraChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Camera"))
+        if (Input.GetButtonDown("Camera")) //make it so that player doesn't render(but does have shadow? in 1st person
         {
             camMode = (camMode == 1) ? 0 : 1;
 

@@ -1,4 +1,5 @@
 ﻿ using UnityEngine;
+using System.Collections;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -104,7 +105,11 @@ namespace StarterAssets
         private Animator _animator;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
-        private GameObject _mainCamera;
+        public GameObject _firstCamera;
+        public GameObject _thirdCamera;
+        private GameObject _currentCamera;
+        public GameObject _firstCamBrain;
+        public GameObject _thirdCamBrain;
 
         private const float _threshold = 0.01f;
 
@@ -125,10 +130,32 @@ namespace StarterAssets
 
         private void Awake()
         {
-            // get a reference to our main camera
-            if (_mainCamera == null)
+            _currentCamera = _firstCamera;
+        }
+
+        public int camMode = 1;
+
+        IEnumerator CamChange()
+        {
+            yield return new WaitForSeconds(0.01f);
+
+            if (camMode == 0)
             {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                _thirdCamera.SetActive(true);
+                _firstCamera.SetActive(false);
+                _thirdCamBrain.SetActive(true);
+                _firstCamBrain.SetActive(false);
+                _currentCamera = _thirdCamera;
+                Debug.Log("Going to Third");
+            }
+            else if (camMode == 1)
+            {
+                _thirdCamera.SetActive(false);
+                _firstCamera.SetActive(true);
+                _thirdCamBrain.SetActive(false);
+                _firstCamBrain.SetActive(true);
+                _currentCamera = _firstCamera;
+                Debug.Log("Going to First");
             }
         }
 
@@ -159,6 +186,13 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+
+            if (Input.GetButtonDown("Camera")) //make it so that player doesn't render(but does have shadow? in 1st person
+            {
+                camMode = (camMode == 1) ? 0 : 1;
+                Debug.Log("A");
+                StartCoroutine(CamChange());
+            }
         }
 
         private void LateUpdate()
@@ -256,7 +290,7 @@ namespace StarterAssets
             if (_input.move != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
+                                  _currentCamera.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 

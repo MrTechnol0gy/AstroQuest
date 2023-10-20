@@ -13,10 +13,10 @@ public class PressurePlateTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("PlateTrigger")) plate.Trigger();
+        if (other.CompareTag("Player") || other.gameObject.layer == LayerMask.NameToLayer("PuzzleObj")) plate.Trigger();
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("PlateTrigger")) plate.UnTrigger();
+        if (other.CompareTag("Player") || other.gameObject.layer == LayerMask.NameToLayer("PuzzleObj")) plate.UnTrigger();
     }
 }

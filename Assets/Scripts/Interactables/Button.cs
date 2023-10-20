@@ -5,6 +5,7 @@ using UnityEngine;
 public class Button : Interactable
 {
     [SerializeField] Door connectedDoor;
+    [SerializeField] ObjectSpawner objectSpawner;
     public override void Activate()
     {
         if (connectedDoor != null)
@@ -12,5 +13,7 @@ public class Button : Interactable
             if (connectedDoor.opening) connectedDoor.opening = false;
             else connectedDoor.opening = true;
         }
+        if (objectSpawner != null)
+            objectSpawner.ResetObject();
     }
 }

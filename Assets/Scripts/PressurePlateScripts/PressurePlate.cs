@@ -8,6 +8,7 @@ public class PressurePlate : MonoBehaviour
     Transform plateCube;
     [SerializeField] Door connectedDoor;
     [SerializeField] ObjectSpawner objectSpawner;
+    [SerializeField] LightPuzzle lightPuzzleReset;
 
     public bool triggered;
 
@@ -25,6 +26,8 @@ public class PressurePlate : MonoBehaviour
             connectedDoor.opening = true;
         if (objectSpawner != null)
             objectSpawner.ResetObject();
+        if (lightPuzzleReset != null)
+            lightPuzzleReset.ResetPuzzle();
 
         triggered = true;
     }

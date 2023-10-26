@@ -6,6 +6,7 @@ public class Button : Interactable
 {
     [SerializeField] Door connectedDoor;
     [SerializeField] ObjectSpawner objectSpawner;
+    [SerializeField] LightPuzzle lightPuzzleReset;
     public override void Activate()
     {
         if (connectedDoor != null)
@@ -15,5 +16,7 @@ public class Button : Interactable
         }
         if (objectSpawner != null)
             objectSpawner.ResetObject();
+        if (lightPuzzleReset != null)
+            lightPuzzleReset.ResetPuzzle();
     }
 }

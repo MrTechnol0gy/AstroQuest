@@ -6,6 +6,7 @@ public class LightPuzzle : MonoBehaviour
 {
     [SerializeField] Door connectedDoor;
     [SerializeField] ObjectSpawner objectSpawner;
+    [SerializeField] LightPuzzle lightPuzzleReset;
 
     [SerializeField] List<LightPlate> lightPlates;
     bool solved;
@@ -31,6 +32,8 @@ public class LightPuzzle : MonoBehaviour
             connectedDoor.opening = true;
         if (objectSpawner != null)
             objectSpawner.ResetObject();
+        if (lightPuzzleReset != null)
+            lightPuzzleReset.ResetPuzzle();
 
         solved = true;
     }

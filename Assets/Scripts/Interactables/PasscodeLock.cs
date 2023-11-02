@@ -10,6 +10,7 @@ public class PasscodeLock : FocusPuller
     [SerializeField] ObjectSpawner objectSpawner;
     [SerializeField] LightPuzzle lightPuzzleReset;
 
+    [Tooltip("Long passwords may overflow")]
     [SerializeField] int password;
     string inputCode;
 
@@ -45,10 +46,16 @@ public class PasscodeLock : FocusPuller
                 objectSpawner.ResetObject();
             if (lightPuzzleReset != null)
                 lightPuzzleReset.ResetPuzzle();
+
+            timer = 0;
+            automaticExit = true;
         }
         else
         {
             inputCode = "INCORRECT";
+
+            if (connectedDoor != null)
+                connectedDoor.opening = false;
         }
         passcodeText.text = inputCode;
     }

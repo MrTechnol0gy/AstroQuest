@@ -5,21 +5,26 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
-    public enum ResourceType
+    public enum ResourceContainer
     {
         undefined,
         spinyPlant,
-        glowyRock,
-        techSalvage,
-        celestialMetal,
-        universalOre
+        spikyCactus,
+        rockA,
+        rockB,
+    }
+
+    public enum ResourceType
+    {
+        unrefinedMetals,
+        unprocessedOrganics,
+        componentChemicals
     }
 
     public GameObject spinyPlant;
-    public GameObject glowyRock;
-    public GameObject techSalvage;
-    public GameObject celestialMetal;
-    public GameObject universalOre;
+    public GameObject spikyCactus;
+    public GameObject rockA;
+    public GameObject rockB;
 
     public static int[] resourceInventory;
 
@@ -39,7 +44,28 @@ public class ResourceManager : MonoBehaviour
 
     public static void CollectResource(Resource collected)
     {
-        resourceInventory[(int)collected.type] += collected.ResourceQuantity;
+        switch(collected.container)
+        {
+            case ResourceManager.ResourceContainer.spinyPlant:
+                int amount = UnityEngine.Random.Range(1, 6);
+                resourceInventory[1] += amount;
+                amount = UnityEngine.Random.Range(1, 6);
+                resourceInventory[2] += amount;
+                break;
+
+            case ResourceManager.ResourceContainer.spikyCactus:
+                amount = UnityEngine.Random.Range(1, 4);
+                resourceInventory[1] += amount;
+                amount = UnityEngine.Random.Range(1, 4);
+                resourceInventory[2] += amount;
+                break;
+
+            case ResourceManager.ResourceContainer.rockA:
+            case ResourceManager.ResourceContainer.rockB:
+                amount = UnityEngine.Random.Range(1, 3);
+                resourceInventory[0] += amount;
+                break;
+        }
     }
 
     public int[] GetResourceInventory()

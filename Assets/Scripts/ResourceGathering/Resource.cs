@@ -7,7 +7,7 @@ public class Resource : Interactable
 {
     // Start is called before the first frame update
 
-    public ResourceManager.ResourceType type;
+    public ResourceManager.ResourceContainer container;
     public string ResourceName { get; set; }
 
     [SerializeField] private int _resourceQuantity = 1;
@@ -16,16 +16,17 @@ public class Resource : Interactable
 
     void Start()
     {
-        if (type == ResourceManager.ResourceType.undefined) Destroy(gameObject);
+        if (container == ResourceManager.ResourceContainer.undefined) Destroy(gameObject);
         else
         {
-            switch(type)
+            switch(container)
             {
-                case ResourceManager.ResourceType.spinyPlant:
-
+                case ResourceManager.ResourceContainer.spinyPlant:
+                    // set spinyPlant model to Active
                     break;
             }
         }
+
         var outline = gameObject.AddComponent<Outline>();
 
         // outline.OutlineMode = Outline.Mode.OutlineAll;

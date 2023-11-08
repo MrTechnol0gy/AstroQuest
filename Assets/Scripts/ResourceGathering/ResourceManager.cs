@@ -7,8 +7,9 @@ public class ResourceManager : MonoBehaviour
 {
     public enum ResourceContainer
     {
-        undefined,
-        spinyPlant,
+        random,
+        spinyPlantA,
+        spinyPlantB,
         spikyCactus,
         rockA,
         rockB,
@@ -44,28 +45,9 @@ public class ResourceManager : MonoBehaviour
 
     public static void CollectResource(Resource collected)
     {
-        switch(collected.container)
-        {
-            case ResourceManager.ResourceContainer.spinyPlant:
-                int amount = UnityEngine.Random.Range(1, 6);
-                resourceInventory[1] += amount;
-                amount = UnityEngine.Random.Range(1, 6);
-                resourceInventory[2] += amount;
-                break;
-
-            case ResourceManager.ResourceContainer.spikyCactus:
-                amount = UnityEngine.Random.Range(1, 4);
-                resourceInventory[1] += amount;
-                amount = UnityEngine.Random.Range(1, 4);
-                resourceInventory[2] += amount;
-                break;
-
-            case ResourceManager.ResourceContainer.rockA:
-            case ResourceManager.ResourceContainer.rockB:
-                amount = UnityEngine.Random.Range(1, 3);
-                resourceInventory[0] += amount;
-                break;
-        }
+        resourceInventory[0] += collected.UnrefinedMetals;
+        resourceInventory[1] += collected.UnprocessedOrganics;
+        resourceInventory[2] += collected.ComponentChemicals;
     }
 
     public int[] GetResourceInventory()

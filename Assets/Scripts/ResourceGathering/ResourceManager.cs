@@ -22,15 +22,8 @@ public class ResourceManager : MonoBehaviour
         componentChemicals
     }
 
-    public GameObject spinyPlant;
-    public GameObject spikyCactus;
-    public GameObject rockA;
-    public GameObject rockB;
-
     public static int[] resourceInventory;
 
-    public static 
-    // Start is called before the first frame update
     void Start()
     {
         int numberOfResourceTypes = Enum.GetNames(typeof(ResourceType)).Length;

@@ -29,7 +29,6 @@ public class ResourceManager : MonoBehaviour
 
     public static int[] resourceInventory;
 
-    public static 
     // Start is called before the first frame update
     void Start()
     {

@@ -4,17 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - CinemachineTarget
-  - InteractZone
-  - PuzzleSphere
+  - EnemyShip
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - PuzzleObj
+  - Enemy
   - 
   - 
   - 

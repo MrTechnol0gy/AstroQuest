@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 711011412536014609}
   - component: {fileID: 607040269918685777}
   - component: {fileID: 3063208817615095464}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: PushSphere
   m_TagString: PuzzleSphere
   m_Icon: {fileID: 0}

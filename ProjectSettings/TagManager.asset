@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - EnemyShip
+  - InteractZone
+  - firstBrain
+  - firstCamera
+  - thirdBrain
+  - CinemachineTarget
+  - thirdCamera
+  - PuzzleSphere
   layers:
   - Default
   - TransparentFX
@@ -13,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
+  - PuzzleObj
   - 
   - 
   - 

@@ -245,11 +245,16 @@ MonoBehaviour:
   thrustText: {fileID: 0}
   camera: {fileID: 1177986451352730331}
   targetingIcon: {fileID: 0}
-  HP: 5
-  MaxHP: 5
+  targetGoBackTo: {fileID: 0}
+  HPText: {fileID: 0}
+  HP: 10
+  MaxHP: 10
+  shield: 0
+  MaxShield: 0
   invincibleTime: 1
   targetTransform: {fileID: 0}
   barrelTransform: {fileID: 394785491506377483}
+  dmg: 0
   timeBetweenFire: 0
   timeSinceLastFire: 0
   shootRange: 0
@@ -257,6 +262,18 @@ MonoBehaviour:
   aimingSize: 2
   aimingDist: 500
   target: {fileID: 0}
+  shieldRank: 0
+  shieldRankValues: 050000000a0000000f00000014000000
+  engineRank: 0
+  engineRankValues: 320000003c0000004b00000050000000
+  gunRank: 0
+  gunDamageValues: 01000000020000000300000004000000
+  gunDelayValues:
+  - 1
+  - 0.75
+  - 0.5
+  - 0.25
+  radarRank: 0
 --- !u!1 &3635031601314746684
 GameObject:
   m_ObjectHideFlags: 0

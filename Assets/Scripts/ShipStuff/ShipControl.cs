@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -39,11 +40,14 @@ public class ShipControl : MonoBehaviour
     [Header("Combat")]
     public int HP;
     public int MaxHP;
+    public int shield;
+    public int MaxShield;
     private bool invincible;
     public float invincibleTime;
     private float timeSpentInvincible;
     public Transform targetTransform;
     public Transform barrelTransform;
+    public int dmg;
     public float timeBetweenFire;
     public float timeSinceLastFire;
     public float shootRange;
@@ -56,21 +60,29 @@ public class ShipControl : MonoBehaviour
     private int collisions = 0;
 
     [Header("Upgrades")]
-    public int resourcesHave;
     public int shieldRank;
+    public int[] shieldRankValues;
     public int engineRank;
+    public int[] engineRankValues;
+    public int gunRank;
+    public int[] gunDamageValues;
+    public float[] gunDelayValues;
+    public int radarRank;
+    public enum UpgradeableComponent { shield, engine, gun, radar };
+    //ShipUpgradeManager shipUpgradeManager;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         HPText.text = HP.ToString() + "/" + MaxHP.ToString();
+        //shipUpgradeManager = FindObjectOfType<ShipUpgradeManager>();
     }
 
     private void Update()
     {
         //Control Thrust with Scroll Wheel
-        currentThrust += Input.mouseScrollDelta.y * 2;
+        currentThrust += Input.mouseScrollDelta.y * (engineRank + 1);
         if (currentThrust < minThrust) currentThrust = minThrust;
         else if (currentThrust > maxThrust) currentThrust = maxThrust;
         thrustText.text = currentThrust.ToString() + " km/h";
@@ -97,7 +109,6 @@ public class ShipControl : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         //Rotate Ship with WS AD and QE
         pitch = Input.GetAxis("Vertical") * pitchSensitivity;
         yaw = Input.GetAxis("Horizontal") * yawSensitivity;
@@ -153,6 +164,31 @@ public class ShipControl : MonoBehaviour
         if(collisions <= 0)
         {
             rb.constraints = RigidbodyConstraints.None;
+        }
+    }
+
+    public void Upgrade(UpgradeableComponent toUpgrade)
+    {
+        switch (toUpgrade)
+        {
+            case UpgradeableComponent.shield:
+                shieldRank++;
+                MaxShield = shieldRankValues[shieldRank];
+                shield = shieldRankValues[shieldRank];
+                break;
+            case UpgradeableComponent.engine:
+                engineRank++;
+                maxThrust = engineRankValues[engineRank];
+                minThrust = -engineRankValues[engineRank]/2;
+                break;
+            case UpgradeableComponent.gun:
+                gunRank++;
+                dmg = gunDamageValues[gunRank];
+                timeBetweenFire = gunDelayValues[gunRank];
+                break;
+            case UpgradeableComponent.radar:
+                radarRank++;
+                break;
         }
     }
 

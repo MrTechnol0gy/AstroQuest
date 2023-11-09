@@ -842,10 +842,11 @@ MonoBehaviour:
   inventory: 030000000300000003000000
   EngineRank: 0
   ShieldRank: 0
-  DamageRank: 0
-  FireRateRank: 0
+  GunRank: 0
+  RadarRank: 0
   upgradeScreen: {fileID: 2058231134}
   shipScreen: {fileID: 1449139192}
+  shipControl: {fileID: 1117274368}
   modules:
   - ingredient: 
     amountNeeded: 
@@ -956,42 +957,96 @@ MonoBehaviour:
     title: Fire Rate 1
     description: Makes you shoot faster. Costs nothing yet
   currentlyAvailable:
-  - ingredient: 
-    amountNeeded: 
+  - ingredient: 00000000
+    amountNeeded: 01000000
     toUpgrade: 0
     unlocked: 0
-    ranked: 0
+    ranked: 1
     last: 0
-    nextRank: []
-    title: 
-    description: 
+    nextRank:
+    - ingredient: 00000000
+      amountNeeded: 02000000
+      toUpgrade: 0
+      unlocked: 0
+      ranked: 1
+      last: 0
+      nextRank:
+      - ingredient: 00000000
+        amountNeeded: 03000000
+        toUpgrade: 0
+        unlocked: 0
+        ranked: 1
+        last: 1
+        nextRank: []
+        title: Engine
+        description: Improves Engine (3A)
+      title: Engine
+      description: Improves Engine (2A)
+    title: Engine
+    description: Improves Engine (1A)
+  - ingredient: 01000000
+    amountNeeded: 01000000
+    toUpgrade: 1
+    unlocked: 0
+    ranked: 1
+    last: 0
+    nextRank:
+    - ingredient: 01000000
+      amountNeeded: 02000000
+      toUpgrade: 1
+      unlocked: 0
+      ranked: 1
+      last: 0
+      nextRank:
+      - ingredient: 00000000
+        amountNeeded: 03000000
+        toUpgrade: 1
+        unlocked: 0
+        ranked: 1
+        last: 1
+        nextRank: []
+        title: Shield
+        description: Improves Shield (WIP) (3B)
+      title: Shield
+      description: Improves Shield (WIP) (2B)
+    title: Shield
+    description: Improves Shield (WIP) (1B)
+  - ingredient: 02000000
+    amountNeeded: 01000000
+    toUpgrade: 2
+    unlocked: 0
+    ranked: 1
+    last: 0
+    nextRank:
+    - ingredient: 02000000
+      amountNeeded: 02000000
+      toUpgrade: 2
+      unlocked: 0
+      ranked: 1
+      last: 0
+      nextRank:
+      - ingredient: 02000000
+        amountNeeded: 03000000
+        toUpgrade: 2
+        unlocked: 0
+        ranked: 1
+        last: 1
+        nextRank: []
+        title: Guns
+        description: Improves Damage and Fire Rate (WIP) (3C)
+      title: Guns
+      description: Improves Damage and Fire Rate (WIP) (2C)
+    title: Guns
+    description: Improves Damage and Fire Rate (WIP) (1C)
   - ingredient: 
     amountNeeded: 
-    toUpgrade: 0
+    toUpgrade: 3
     unlocked: 0
-    ranked: 0
-    last: 0
+    ranked: 1
+    last: 1
     nextRank: []
-    title: 
-    description: 
-  - ingredient: 
-    amountNeeded: 
-    toUpgrade: 0
-    unlocked: 0
-    ranked: 0
-    last: 0
-    nextRank: []
-    title: 
-    description: 
-  - ingredient: 
-    amountNeeded: 
-    toUpgrade: 0
-    unlocked: 0
-    ranked: 0
-    last: 0
-    nextRank: []
-    title: 
-    description: 
+    title: Radar
+    description: Improves Radar (not implemented)
   UIs:
   - button: {fileID: 1300064769}
     title: {fileID: 1246828313}
@@ -1898,6 +1953,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1117274368 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
+  m_PrefabInstance: {fileID: 2040995525167933605}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8a338b51fb8054e82f37d6edcacaa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1122371494
 GameObject:
   m_ObjectHideFlags: 0
@@ -5227,14 +5293,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: HP
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: MaxHP
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
       propertyPath: HPText
       value: 

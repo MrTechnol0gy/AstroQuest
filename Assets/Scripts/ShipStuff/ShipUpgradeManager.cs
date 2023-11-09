@@ -15,18 +15,20 @@ public class ShipUpgradeManager : MonoBehaviour
 
     public enum ToUpgrade
     {
-        Engine, Shield, Damage, FireRate
+        Engine, Shield, Gun, Radar
     }
 
     public int[] inventory = new int[3];
 
     public int EngineRank;
     public int ShieldRank;
-    public int DamageRank;
-    public int FireRateRank;
+    public int GunRank;
+    public int RadarRank;
 
     public GameObject upgradeScreen;
     public GameObject shipScreen;
+
+    public ShipControl shipControl;
 
     public List<UpgradeModule> modules;
     public UpgradeModule[] currentlyAvailable;
@@ -91,15 +93,19 @@ public class ShipUpgradeManager : MonoBehaviour
         {
             case ToUpgrade.Engine:
                 EngineRank++;
+                shipControl.Upgrade(ShipControl.UpgradeableComponent.engine);
                 break;
             case ToUpgrade.Shield:
                 ShieldRank++;
+                shipControl.Upgrade(ShipControl.UpgradeableComponent.shield);
                 break;
-            case ToUpgrade.Damage:
-                DamageRank++;
+            case ToUpgrade.Gun:
+                GunRank++;
+                shipControl.Upgrade(ShipControl.UpgradeableComponent.gun);
                 break;
-            case ToUpgrade.FireRate:
-                FireRateRank++;
+            case ToUpgrade.Radar:
+                RadarRank++;
+                shipControl.Upgrade(ShipControl.UpgradeableComponent.radar);
                 break;
             default:
                 break;

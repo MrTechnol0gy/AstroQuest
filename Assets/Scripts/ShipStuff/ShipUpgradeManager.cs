@@ -46,6 +46,7 @@ public class ShipUpgradeManager : MonoBehaviour
     {
         if (InUpgradeScreen)
         {
+            //open upgrade screen
             if (Input.GetKeyDown(KeyCode.U))
             {
                 Time.timeScale = 1.0f;
@@ -57,6 +58,7 @@ public class ShipUpgradeManager : MonoBehaviour
         else
         {
             Refresh();
+            //close upgrade screen
             if (Input.GetKeyDown(KeyCode.U))
             {
                 Time.timeScale = 0;
@@ -87,6 +89,7 @@ public class ShipUpgradeManager : MonoBehaviour
         }
     }
 
+    //Purchase an upgrade module
     public void Upgrade(UpgradeModule module)
     {
         switch(module.toUpgrade)
@@ -131,6 +134,7 @@ public class ShipUpgradeManager : MonoBehaviour
         Refresh();
     }
 
+    //Check to see if values changed due to player buying resources
     void Refresh()
     {
         for (int i = 0; i < currentlyAvailable.Length; i++)
@@ -157,7 +161,7 @@ public class ShipUpgradeManager : MonoBehaviour
 
     }
 
-    [Serializable]
+    [Serializable] //Create upgrades in inspector
     public class UpgradeModule
     {
         [Header("Recipe")]
@@ -198,7 +202,7 @@ public class ShipUpgradeManager : MonoBehaviour
 
     }
 
-    [Serializable]
+    [Serializable] //A collection of UI Assets to link with upgraded module data
     public class UpgradeUI
     {
         public Button button;

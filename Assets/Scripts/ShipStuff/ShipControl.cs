@@ -17,13 +17,13 @@ public class ShipControl : MonoBehaviour
     public float maxThrust;
     private float currentThrust;
 
+    //Turning
     public float pitch;
     public float pitchSensitivity;
     public float yaw;
     public float yawSensitivity;
     public float elevation;
     public float elevationSensitivity;
-
     public float roll;
     public float turnRoll;
     public float turnRollAmount;
@@ -40,6 +40,11 @@ public class ShipControl : MonoBehaviour
     [Header("Combat")]
     public int HP;
     public int MaxHP;
+    public float shootRange;
+    public Transform enemyTargetSpot;
+    public float aimingSize;
+    public float aimingDist;
+    //Not Fully Implemented
     public int shield;
     public int MaxShield;
     private bool invincible;
@@ -50,13 +55,10 @@ public class ShipControl : MonoBehaviour
     public int dmg;
     public float timeBetweenFire;
     public float timeSinceLastFire;
-    public float shootRange;
-    public Transform enemyTargetSpot;
-    public float aimingSize;
-    public float aimingDist;
 
     public EnemyShip target;
 
+    //How many things is the ship touching
     private int collisions = 0;
 
     [Header("Upgrades")]
@@ -69,14 +71,12 @@ public class ShipControl : MonoBehaviour
     public float[] gunDelayValues;
     public int radarRank;
     public enum UpgradeableComponent { shield, engine, gun, radar };
-    //ShipUpgradeManager shipUpgradeManager;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         HPText.text = HP.ToString() + "/" + MaxHP.ToString();
-        //shipUpgradeManager = FindObjectOfType<ShipUpgradeManager>();
     }
 
     private void Update()
@@ -87,11 +87,13 @@ public class ShipControl : MonoBehaviour
         else if (currentThrust > maxThrust) currentThrust = maxThrust;
         thrustText.text = currentThrust.ToString() + " km/h";
 
+        //Test Damage
         if(Input.GetKeyDown(KeyCode.P))
         {
             TakeDMG(1);
         }
 
+        //WIP testing guns
         if(target != null)
         {
             targetingIcon.rectTransform.position = camera.WorldToScreenPoint(target.transform.position);
@@ -124,6 +126,7 @@ public class ShipControl : MonoBehaviour
         }
         transform.Rotate(pitch, yaw, roll);
 
+        //Targetting System
         RaycastHit sphereHit;
         target = null;
         if(Physics.SphereCast(camera.transform.position, aimingSize, camera.transform.forward, out sphereHit, aimingDist, LayerMask.GetMask("Enemy")))
@@ -140,6 +143,7 @@ public class ShipControl : MonoBehaviour
 
     }
 
+    //The Ship Takes Damage. Still need to implement shield which recharges before hull takes damage which doesn't easily heal
     public void TakeDMG(int dmg)
     {
         HP -= dmg;
@@ -152,12 +156,14 @@ public class ShipControl : MonoBehaviour
         }
     }
 
+    //Crash
     private void OnCollisionEnter(Collision collision)
     {
         collisions++;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
+    //Uncrash
     private void OnCollisionExit(Collision collision)
     {
         collisions--;
@@ -167,6 +173,7 @@ public class ShipControl : MonoBehaviour
         }
     }
 
+    //Used by Upgrade Manager. Lacks Persistence
     public void Upgrade(UpgradeableComponent toUpgrade)
     {
         switch (toUpgrade)

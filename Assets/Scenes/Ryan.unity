@@ -922,11 +922,11 @@ MonoBehaviour:
         ranked: 1
         last: 1
         nextRank: []
-        title: Damage 3
+        title: Guns 3
         description: Costs 3 Metals.
-      title: Damage 2
+      title: Guns 2
       description: Costs 2 Metals.
-    title: Damage 1
+    title: Guns 1
     description: Makes your projectiles do more damage. Costs 1 Metal.
   - ingredient: 
     amountNeeded: 
@@ -949,12 +949,12 @@ MonoBehaviour:
         ranked: 1
         last: 1
         nextRank: []
-        title: Fire Rate 3
-        description: Makes you shoot faster. Costs nothing yet.
-      title: Fire Rate 2
-      description: Makes you shoot faster. Costs nothing yet
-    title: Fire Rate 1
-    description: Makes you shoot faster. Costs nothing yet
+        title: Radar
+        description: Doesn't do anything yet
+      title: Radar
+      description: Doesn't do anything yet
+    title: Radar
+    description: Doesn't do anything yet
   currentlyAvailable:
   - ingredient: 00000000
     amountNeeded: 01000000

@@ -13,8 +13,6 @@ public class ShipUpgradeManager : MonoBehaviour
         Engine, Shield, Gun, Radar
     }
 
-    //public int[] inventory = new int[3];
-
     public int EngineRank;
     public int ShieldRank;
     public int GunRank;
@@ -124,18 +122,6 @@ public class ShipUpgradeManager : MonoBehaviour
         for (int i = 0; i < module.ingredient.Count; i++)
         {
             ResourceManager.LoseResource(module.ingredient[i], module.amountNeeded[i]);
-            /*switch (module.ingredient[i])
-            {
-                case ResourceManager.ResourceType.unrefinedMetals:
-                    ResourceManager.LoseResource(ResourceManager.ResourceType.unrefinedMetals, module.amountNeeded[i]);
-                    break;
-                case ResourceManager.ResourceType.unprocessedOrganics:
-                    inventory[1] -= module.amountNeeded[i];
-                    break;
-                case ResourceManager.ResourceType.componentChemicals:
-                    inventory[2] -= module.amountNeeded[i];
-                    break;
-            }*/
         }
 
         module.unlocked = true;
@@ -192,18 +178,6 @@ public class ShipUpgradeManager : MonoBehaviour
             bool passing = true;
             for (int i = 0; i < ingredient.Count; i++)
             {
-                /*switch(ingredient[i])
-                {
-                    case ResourceManager.ResourceType.unrefinedMetals:
-                        if (A < amountNeeded[i]) passing = false;
-                        break;
-                    case ResourceManager.ResourceType.unprocessedOrganics:
-                        if (B < amountNeeded[i]) passing = false;
-                        break;
-                    case ResourceManager.ResourceType.componentChemicals:
-                        if (C < amountNeeded[i]) passing = false;
-                        break;
-                }*/
                 if (ResourceManager.resourceInventory[(int)ingredient[i]] < amountNeeded[i]) passing = false;
             }
             return passing;

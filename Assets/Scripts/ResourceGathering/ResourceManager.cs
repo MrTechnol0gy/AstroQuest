@@ -48,6 +48,14 @@ public class ResourceManager : MonoBehaviour
         resourceInventory[2] += collected.ComponentChemicals;
     }
 
+    public static void LoseResource(ResourceType resourceType, int count)
+    {
+        if (resourceInventory[(int)resourceType] >= count)
+        {
+            resourceInventory[(int)resourceType] -= count;
+        }
+    }
+
     public int[] GetResourceInventory()
     {
         return resourceInventory;

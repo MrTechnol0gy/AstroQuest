@@ -839,7 +839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64939f129f454ec48861612c7a88c527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: 030000000300000003000000
   EngineRank: 0
   ShieldRank: 0
   GunRank: 0
@@ -897,11 +896,11 @@ MonoBehaviour:
         last: 1
         nextRank: []
         title: Shield 3
-        description: Costs 3 B and 3 C
+        description: Costs 3 Organics and 3 Chemicals
       title: Shield 2
-      description: Costs 2 B
+      description: Costs 2 Organics
     title: Shield 1
-    description: Costs 1 B and 1 C
+    description: Costs 1 Organics and 1 Chemicals
   - ingredient: 00000000
     amountNeeded: 01000000
     toUpgrade: 2
@@ -924,11 +923,11 @@ MonoBehaviour:
         last: 1
         nextRank: []
         title: Damage 3
-        description: Costs 3 A
+        description: Costs 3 Metals.
       title: Damage 2
-      description: Costs 2 A.
+      description: Costs 2 Metals.
     title: Damage 1
-    description: Makes your projectiles do more damage. Costs 1 A.
+    description: Makes your projectiles do more damage. Costs 1 Metal.
   - ingredient: 
     amountNeeded: 
     toUpgrade: 3
@@ -4288,6 +4287,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1734287582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1734287584}
+  - component: {fileID: 1734287583}
+  m_Layer: 0
+  m_Name: ResourceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1734287583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734287582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b844f47dbdfdf448ce3a93407b10d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinyPlant: {fileID: 0}
+  spikyCactus: {fileID: 0}
+  rockA: {fileID: 0}
+  rockB: {fileID: 0}
+--- !u!4 &1734287584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734287582}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 321.68933, y: 9.351318, z: 2296.8123}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1777982525
 GameObject:
   m_ObjectHideFlags: 0
@@ -5378,3 +5425,4 @@ SceneRoots:
   - {fileID: 1043971078}
   - {fileID: 1449118900}
   - {fileID: 572838985}
+  - {fileID: 1734287584}

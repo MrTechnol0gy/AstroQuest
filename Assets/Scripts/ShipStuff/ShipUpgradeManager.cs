@@ -8,17 +8,12 @@ using UnityEngine.UI;
 public class ShipUpgradeManager : MonoBehaviour
 {
 
-    public enum ResourcesPlaceholder
-    {
-        ResourceA, ResourceB, ResourceC
-    }
-
     public enum ToUpgrade
     {
         Engine, Shield, Gun, Radar
     }
 
-    public int[] inventory = new int[3];
+    //public int[] inventory = new int[3];
 
     public int EngineRank;
     public int ShieldRank;
@@ -67,6 +62,18 @@ public class ShipUpgradeManager : MonoBehaviour
                 upgradeScreen.SetActive(true);
             }
         }
+
+        Debug.Log(ResourceManager.resourceInventory[0] + "|" + ResourceManager.resourceInventory[1] + "|" + ResourceManager.resourceInventory[2]);
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            for (int i = 0; i < ResourceManager.resourceInventory.Length; i++)
+            {
+                ResourceManager.resourceInventory[i]++;
+                Refresh();
+            }
+        }
+
     }
 
     public void AssignUI(UpgradeUI ui, UpgradeModule module)
@@ -75,7 +82,7 @@ public class ShipUpgradeManager : MonoBehaviour
         ui.title.text = module.title;
         ui.description.text = module.description;
         ui.AssignModule(module);
-        if (module.CanAfford(inventory[0], inventory[1], inventory[2]) && module.unlocked == false)
+        if (module.CanAfford() && module.unlocked == false)
         {
             ui.button.interactable = true;
         }
@@ -116,18 +123,19 @@ public class ShipUpgradeManager : MonoBehaviour
 
         for (int i = 0; i < module.ingredient.Count; i++)
         {
-            switch (module.ingredient[i])
+            ResourceManager.LoseResource(module.ingredient[i], module.amountNeeded[i]);
+            /*switch (module.ingredient[i])
             {
-                case ResourcesPlaceholder.ResourceA:
-                    inventory[0] -= module.amountNeeded[i];
+                case ResourceManager.ResourceType.unrefinedMetals:
+                    ResourceManager.LoseResource(ResourceManager.ResourceType.unrefinedMetals, module.amountNeeded[i]);
                     break;
-                case ResourcesPlaceholder.ResourceB:
+                case ResourceManager.ResourceType.unprocessedOrganics:
                     inventory[1] -= module.amountNeeded[i];
                     break;
-                case ResourcesPlaceholder.ResourceC:
+                case ResourceManager.ResourceType.componentChemicals:
                     inventory[2] -= module.amountNeeded[i];
                     break;
-            }
+            }*/
         }
 
         module.unlocked = true;
@@ -165,7 +173,7 @@ public class ShipUpgradeManager : MonoBehaviour
     public class UpgradeModule
     {
         [Header("Recipe")]
-        public List<ResourcesPlaceholder> ingredient;
+        public List<ResourceManager.ResourceType> ingredient;
         public List<int> amountNeeded;
 
         [Header("Info")]
@@ -179,23 +187,24 @@ public class ShipUpgradeManager : MonoBehaviour
         public string title;
         public string description;
 
-        public bool CanAfford(int A, int B, int C)
+        public bool CanAfford()
         {
             bool passing = true;
             for (int i = 0; i < ingredient.Count; i++)
             {
-                switch(ingredient[i])
+                /*switch(ingredient[i])
                 {
-                    case ResourcesPlaceholder.ResourceA:
+                    case ResourceManager.ResourceType.unrefinedMetals:
                         if (A < amountNeeded[i]) passing = false;
                         break;
-                    case ResourcesPlaceholder.ResourceB:
+                    case ResourceManager.ResourceType.unprocessedOrganics:
                         if (B < amountNeeded[i]) passing = false;
                         break;
-                    case ResourcesPlaceholder.ResourceC:
+                    case ResourceManager.ResourceType.componentChemicals:
                         if (C < amountNeeded[i]) passing = false;
                         break;
-                }
+                }*/
+                if (ResourceManager.resourceInventory[(int)ingredient[i]] < amountNeeded[i]) passing = false;
             }
             return passing;
         }

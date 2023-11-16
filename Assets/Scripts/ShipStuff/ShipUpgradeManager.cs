@@ -51,6 +51,7 @@ public class ShipUpgradeManager : MonoBehaviour
         else
         {
             Refresh();
+            Debug.Log(ResourceManager.resourceInventory[0] + "|" + ResourceManager.resourceInventory[1] + "|" + ResourceManager.resourceInventory[2]);
             //close upgrade screen
             if (Input.GetKeyDown(KeyCode.U))
             {
@@ -61,7 +62,6 @@ public class ShipUpgradeManager : MonoBehaviour
             }
         }
 
-        Debug.Log(ResourceManager.resourceInventory[0] + "|" + ResourceManager.resourceInventory[1] + "|" + ResourceManager.resourceInventory[2]);
 
         if (Input.GetKeyDown(KeyCode.K))
         {

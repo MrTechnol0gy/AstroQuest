@@ -45,11 +45,11 @@ public class ShipControl : MonoBehaviour
     public Transform enemyTargetSpot;
     public float aimingSize;
     public float aimingDist;
-    //Not Fully Implemented
     public int shield;
     public int MaxShield;
     public float shieldRegainTime;
     private float currentShieldTime;
+    //Not Fully Implemented
     private bool invincible;
     public float invincibleTime;
     private float timeSpentInvincible;
@@ -60,6 +60,10 @@ public class ShipControl : MonoBehaviour
     public float timeSinceLastFire;
 
     public EnemyShip target;
+
+    [Header("Shooting Visual")]
+    public TrailRenderer bulletTrail;
+
 
     //How many things is the ship touching
     private int collisions = 0;
@@ -83,6 +87,10 @@ public class ShipControl : MonoBehaviour
         MaxShield = shieldRankValues[shieldRank];
         shield = shieldRankValues[shieldRank];
         shieldText.text = "Shield: " + shield.ToString() + "/" + MaxShield.ToString();
+
+        dmg = gunDamageValues[gunRank];
+        timeBetweenFire = gunDelayValues[gunRank];
+
         HPText.text = "HP: " + HP.ToString() + "/" + MaxHP.ToString();
     }
 
@@ -114,18 +122,54 @@ public class ShipControl : MonoBehaviour
         }
 
         //WIP testing guns
+        //Targetting Icon Control
         if(target != null)
         {
             targetingIcon.rectTransform.position = camera.WorldToScreenPoint(target.transform.position);
-            if (Input.GetButton("Fire"))
-            {
-                target.Die();
-            }
         }
         else
         {
             targetingIcon.rectTransform.position = targetGoBackTo.rectTransform.position;
         }
+        targetingIcon.fillAmount = 1 - (timeSinceLastFire / timeBetweenFire);
+        //Fire Rate and Shooting
+        if (Input.GetButton("Fire"))
+        {
+            if(timeSinceLastFire <= 0)
+            {
+                timeSinceLastFire = timeBetweenFire;
+                TrailRenderer tempTrail = Instantiate(bulletTrail);
+                if(target != null)
+                {
+                    barrelTransform.LookAt(target.transform.position);
+                    RaycastHit hit;
+                    if (Physics.Raycast(barrelTransform.position, barrelTransform.forward, out hit, shootRange))
+                    {
+                        StartCoroutine(SpawnTrailHit(barrelTransform, tempTrail, hit));
+                    }
+                    else
+                    {
+                        StartCoroutine(SpawnTrailMiss(barrelTransform, tempTrail, shootRange));
+                    }
+                }
+                else
+                {
+                    barrelTransform.rotation = transform.rotation;
+                    StartCoroutine(SpawnTrailMiss(barrelTransform, tempTrail, shootRange));
+                }
+            }
+            else
+            {
+                timeSinceLastFire -= Time.deltaTime;
+            }
+        }
+        else if(timeSinceLastFire > 0)
+        {
+            timeSinceLastFire -= Time.deltaTime;
+        }
+
+
+        
     }
 
     // Update is called once per frame
@@ -239,6 +283,38 @@ public class ShipControl : MonoBehaviour
                 radarRank++;
                 break;
         }
+    }
+
+    //show bullet trail
+    private IEnumerator SpawnTrailHit(Transform startPos, TrailRenderer trail, RaycastHit hit)
+    {
+        float time = 0;
+        while (time < 1)
+        {
+            trail.transform.position = Vector3.Lerp(startPos.position, hit.point, time);
+            time += Time.deltaTime / trail.time;
+            yield return null;
+        }
+        trail.transform.position = hit.point;
+        if(target!= null)
+            target.Die();
+        //Instantiate(propertyExplosion, hit.point, Quaternion.LookRotation(hit.point));
+        Destroy(trail.gameObject, trail.time);
+    }
+
+    //show bullet trail
+    private IEnumerator SpawnTrailMiss(Transform startPos, TrailRenderer trail, float ShootRange)
+    {
+        float time = 0;
+        Vector3 pos = startPos.position + (startPos.forward * ShootRange / 2);
+        while (time < 1)
+        {
+            trail.transform.position = Vector3.Lerp(startPos.position, pos, time);
+            time += trail.time;
+            yield return null;
+        }
+        trail.transform.position = pos;
+        Destroy(trail.gameObject, trail.time);
     }
 
 }

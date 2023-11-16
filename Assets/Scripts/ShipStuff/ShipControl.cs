@@ -36,6 +36,7 @@ public class ShipControl : MonoBehaviour
     public Image targetingIcon;
     public Image targetGoBackTo;
     public TextMeshProUGUI HPText;
+    public TextMeshProUGUI shieldText;
 
     [Header("Combat")]
     public int HP;
@@ -47,6 +48,8 @@ public class ShipControl : MonoBehaviour
     //Not Fully Implemented
     public int shield;
     public int MaxShield;
+    public float shieldRegainTime;
+    private float currentShieldTime;
     private bool invincible;
     public float invincibleTime;
     private float timeSpentInvincible;
@@ -76,7 +79,11 @@ public class ShipControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        HPText.text = HP.ToString() + "/" + MaxHP.ToString();
+
+        MaxShield = shieldRankValues[shieldRank];
+        shield = shieldRankValues[shieldRank];
+        shieldText.text = "Shield: " + shield.ToString() + "/" + MaxShield.ToString();
+        HPText.text = "HP: " + HP.ToString() + "/" + MaxHP.ToString();
     }
 
     private void Update()
@@ -91,6 +98,19 @@ public class ShipControl : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             TakeDMG(1);
+        }
+
+        if(currentShieldTime > 0)
+        {
+            currentShieldTime -= Time.deltaTime;
+        }
+        else
+        {
+            if(shield < MaxShield)
+            {
+                RegainShield(1);
+                currentShieldTime = shieldRegainTime;
+            }
         }
 
         //WIP testing guns
@@ -146,16 +166,37 @@ public class ShipControl : MonoBehaviour
     //The Ship Takes Damage. Still need to implement shield which recharges before hull takes damage which doesn't easily heal
     public void TakeDMG(int dmg)
     {
-        HP -= dmg;
-        HPText.text = HP.ToString() + "/" + MaxHP.ToString();
+        currentShieldTime = shieldRegainTime;
+        if(shield >= dmg)
+        {
+            shield -= dmg;
+        }
+        else
+        {
+            dmg -= shield;
+            shield = 0;
+            HP -= dmg;
+        }
+        shieldText.text = "Shield: " + shield.ToString() + "/" + MaxShield.ToString();
+        HPText.text = "HP: " + HP.ToString() + "/" + MaxHP.ToString();
         if (HP <= 0)
         {
             HP = 0;
-            HPText.text = HP.ToString() + "/" + MaxHP.ToString();
+            HPText.text = "HP: " + HP.ToString() + "/" + MaxHP.ToString();
             Destroy(gameObject);
         }
     }
 
+    public void RegainShield(int amount)
+    {
+        shield += amount;
+        if(shield > MaxShield)
+        {
+            shield = MaxShield;
+        }
+        shieldText.text = "Shield: " + shield.ToString() + "/" + MaxShield.ToString();
+    }
+    
     //Crash
     private void OnCollisionEnter(Collision collision)
     {
@@ -182,6 +223,7 @@ public class ShipControl : MonoBehaviour
                 shieldRank++;
                 MaxShield = shieldRankValues[shieldRank];
                 shield = shieldRankValues[shieldRank];
+                shieldText.text = "Shield: " + shield.ToString() + "/" + MaxShield.ToString();
                 break;
             case UpgradeableComponent.engine:
                 engineRank++;

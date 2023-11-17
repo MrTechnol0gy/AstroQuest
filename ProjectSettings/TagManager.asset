@@ -12,6 +12,11 @@ TagManager:
   - CinemachineTarget
   - thirdCamera
   - PuzzleSphere
+  - targetIcon
+  - targetBackTo
+  - HP
+  - Shield
+  - Thrust
   layers:
   - Default
   - TransparentFX

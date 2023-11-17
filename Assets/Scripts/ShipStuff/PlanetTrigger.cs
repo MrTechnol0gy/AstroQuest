@@ -10,6 +10,7 @@ public class PlanetTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            FindObjectOfType<ShipUpgradeManager>().HideUI();
             SceneManager.LoadScene(scene);
         }
     }

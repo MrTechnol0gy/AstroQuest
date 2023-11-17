@@ -30,16 +30,40 @@ public class ShipUpgradeManager : MonoBehaviour
 
     public bool InUpgradeScreen;
 
-    private void Start()
+    public static ShipUpgradeManager instance;
+
+    public TextMeshProUGUI inventoryText;
+
+    private void Awake()
     {
         InUpgradeScreen = false;
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void HideUI()
+    {
+        upgradeScreen.SetActive(false);
+        shipScreen.SetActive(false);
+    }
+
+    public void ShowUI()
+    {
+        shipScreen.SetActive(true);
     }
 
     private void Update()
     {
         if (InUpgradeScreen)
         {
-            //open upgrade screen
+            //close upgrade screen
             if (Input.GetKeyDown(KeyCode.U))
             {
                 Time.timeScale = 1.0f;
@@ -50,11 +74,11 @@ public class ShipUpgradeManager : MonoBehaviour
         }
         else
         {
-            Refresh();
             Debug.Log(ResourceManager.resourceInventory[0] + "|" + ResourceManager.resourceInventory[1] + "|" + ResourceManager.resourceInventory[2]);
-            //close upgrade screen
+            //open upgrade screen
             if (Input.GetKeyDown(KeyCode.U))
             {
+                Refresh();
                 Time.timeScale = 0;
                 InUpgradeScreen = true;
                 shipScreen.SetActive(false);
@@ -131,6 +155,9 @@ public class ShipUpgradeManager : MonoBehaviour
     //Check to see if values changed due to player buying resources
     void Refresh()
     {
+
+        inventoryText.text = "Metals: " + ResourceManager.resourceInventory[0] + "\nOrganics: " + ResourceManager.resourceInventory[1] + "\nChemicals: " + ResourceManager.resourceInventory[2];
+
         for (int i = 0; i < currentlyAvailable.Length; i++)
         {
             if (modules[i] != null)

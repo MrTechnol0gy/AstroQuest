@@ -65,6 +65,7 @@ public class ShipControl : MonoBehaviour
     private int collisions = 0;
 
     [Header("Upgrades")]
+    ShipUpgradeManager upgradeManager;
     public int shieldRank;
     public int[] shieldRankValues;
     public int engineRank;
@@ -89,6 +90,20 @@ public class ShipControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        HPText = GameObject.FindGameObjectWithTag("HP").GetComponent<TextMeshProUGUI>();
+        shieldText = GameObject.FindGameObjectWithTag("Shield").GetComponent<TextMeshProUGUI>();
+        thrustText = GameObject.FindGameObjectWithTag("Thrust").GetComponent<TextMeshProUGUI>();
+
+        upgradeManager = FindObjectOfType<ShipUpgradeManager>();
+        upgradeManager.shipControl = this;
+        shieldRank = upgradeManager.ShieldRank;
+        engineRank = upgradeManager.EngineRank;
+        gunRank = upgradeManager.GunRank;
+        radarRank = upgradeManager.RadarRank;
+
+        targetingIcon = GameObject.FindGameObjectWithTag("targetIcon").GetComponent<Image>();
+        targetGoBackTo = GameObject.FindGameObjectWithTag("targetBackTo").GetComponent<Image>();
 
         MaxShield = shieldRankValues[shieldRank];
         shield = shieldRankValues[shieldRank];

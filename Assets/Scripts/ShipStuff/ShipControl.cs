@@ -49,10 +49,6 @@ public class ShipControl : MonoBehaviour
     public int MaxShield;
     public float shieldRegainTime;
     private float currentShieldTime;
-    //Not Fully Implemented
-    private bool invincible;
-    public float invincibleTime;
-    private float timeSpentInvincible;
     public Transform targetTransform;
     public Transform barrelTransform;
     public int dmg;
@@ -79,6 +75,16 @@ public class ShipControl : MonoBehaviour
     public int radarRank;
     public enum UpgradeableComponent { shield, engine, gun, radar };
 
+    [Header("Upgrade Visuals")]
+    public GameObject[] shieldModels;
+    public GameObject[] gunModels;
+    public GameObject[] radarModels;
+    public GameObject frontGun;
+    public GameObject backGun;
+    public GameObject shieldGenerator;
+    public GameObject radarDish;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,13 +97,18 @@ public class ShipControl : MonoBehaviour
         dmg = gunDamageValues[gunRank];
         timeBetweenFire = gunDelayValues[gunRank];
 
+        ReplaceChild(shieldGenerator, UpgradeableComponent.shield);
+        ReplaceChild(frontGun, UpgradeableComponent.gun);
+        ReplaceChild(backGun, UpgradeableComponent.gun);
+        ReplaceChild(radarDish, UpgradeableComponent.radar);
+
         HPText.text = "HP: " + HP.ToString() + "/" + MaxHP.ToString();
     }
 
     private void Update()
     {
         //Control Thrust with Scroll Wheel
-        currentThrust += Input.mouseScrollDelta.y * (engineRank + 1);
+        currentThrust += Input.mouseScrollDelta.y * 10 * (engineRank + 1);
         if (currentThrust < minThrust) currentThrust = minThrust;
         else if (currentThrust > maxThrust) currentThrust = maxThrust;
         thrustText.text = currentThrust.ToString() + " km/h";
@@ -126,6 +137,7 @@ public class ShipControl : MonoBehaviour
         if(target != null)
         {
             targetingIcon.rectTransform.position = camera.WorldToScreenPoint(target.transform.position);
+            targetingIcon.rectTransform.position = new Vector3(targetingIcon.rectTransform.position.x, targetingIcon.rectTransform.position.y, 0);
         }
         else
         {
@@ -268,6 +280,8 @@ public class ShipControl : MonoBehaviour
                 MaxShield = shieldRankValues[shieldRank];
                 shield = shieldRankValues[shieldRank];
                 shieldText.text = "Shield: " + shield.ToString() + "/" + MaxShield.ToString();
+
+                ReplaceChild(shieldGenerator, UpgradeableComponent.shield);
                 break;
             case UpgradeableComponent.engine:
                 engineRank++;
@@ -278,9 +292,12 @@ public class ShipControl : MonoBehaviour
                 gunRank++;
                 dmg = gunDamageValues[gunRank];
                 timeBetweenFire = gunDelayValues[gunRank];
+                ReplaceChild(frontGun, UpgradeableComponent.gun);
+                ReplaceChild(backGun, UpgradeableComponent.gun);
                 break;
             case UpgradeableComponent.radar:
                 radarRank++;
+                ReplaceChild(radarDish, UpgradeableComponent.radar);
                 break;
         }
     }
@@ -315,6 +332,28 @@ public class ShipControl : MonoBehaviour
         }
         trail.transform.position = pos;
         Destroy(trail.gameObject, trail.time);
+    }
+
+    void ReplaceChild(GameObject parent, UpgradeableComponent com)
+    {
+        if(parent.transform.childCount > 0)
+        {
+            Destroy(parent.transform.GetChild(0).gameObject);
+        }
+
+        switch (com)
+        {
+            case UpgradeableComponent.shield:
+                Instantiate(shieldModels[shieldRank], parent.transform);
+                break;
+            case UpgradeableComponent.radar:
+                Instantiate(radarModels[radarRank], parent.transform);
+                break;
+            case UpgradeableComponent.gun:
+                Instantiate(gunModels[gunRank], parent.transform);
+                break;
+        }
+
     }
 
 }

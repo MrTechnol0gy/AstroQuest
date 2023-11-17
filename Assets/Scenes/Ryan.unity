@@ -261,8 +261,8 @@ Transform:
   m_GameObject: {fileID: 15752133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.443592, y: -7.5673866, z: 107.3}
-  m_LocalScale: {x: 25, y: 25, z: 25}
+  m_LocalPosition: {x: 13.443592, y: -7.5673866, z: 1437}
+  m_LocalScale: {x: 250, y: 250, z: 250}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -859,17 +859,8 @@ MonoBehaviour:
       toUpgrade: 0
       unlocked: 0
       ranked: 1
-      last: 0
-      nextRank:
-      - ingredient: 
-        amountNeeded: 
-        toUpgrade: 0
-        unlocked: 0
-        ranked: 0
-        last: 1
-        nextRank: []
-        title: Speed 3
-        description: Free
+      last: 1
+      nextRank: []
       title: Speed 2
       description: Free
     title: Speed 1
@@ -886,17 +877,8 @@ MonoBehaviour:
       toUpgrade: 1
       unlocked: 0
       ranked: 1
-      last: 0
-      nextRank:
-      - ingredient: 0100000002000000
-        amountNeeded: 0300000003000000
-        toUpgrade: 1
-        unlocked: 0
-        ranked: 1
-        last: 1
-        nextRank: []
-        title: Shield 3
-        description: Costs 3 Organics and 3 Chemicals
+      last: 1
+      nextRank: []
       title: Shield 2
       description: Costs 2 Organics
     title: Shield 1
@@ -913,17 +895,8 @@ MonoBehaviour:
       toUpgrade: 2
       unlocked: 0
       ranked: 1
-      last: 0
-      nextRank:
-      - ingredient: 00000000
-        amountNeeded: 03000000
-        toUpgrade: 2
-        unlocked: 0
-        ranked: 1
-        last: 1
-        nextRank: []
-        title: Guns 3
-        description: Costs 3 Metals.
+      last: 1
+      nextRank: []
       title: Guns 2
       description: Costs 2 Metals.
     title: Guns 1
@@ -940,17 +913,8 @@ MonoBehaviour:
       toUpgrade: 3
       unlocked: 0
       ranked: 1
-      last: 0
-      nextRank:
-      - ingredient: 
-        amountNeeded: 
-        toUpgrade: 3
-        unlocked: 0
-        ranked: 1
-        last: 1
-        nextRank: []
-        title: Radar
-        description: Doesn't do anything yet
+      last: 1
+      nextRank: []
       title: Radar
       description: Doesn't do anything yet
     title: Radar
@@ -1545,7 +1509,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -17.55073, y: -2.0905747, z: 1.0562738}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1183710969}
@@ -5516,38 +5480,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 394785491506377483, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
       propertyPath: HPText
       value: 
       objectReference: {fileID: 1265982682}
     - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: shield
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: MaxShield
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
       propertyPath: shieldText
       value: 
       objectReference: {fileID: 1977729273}
     - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: shootRange
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
       propertyPath: thrustText
       value: 
       objectReference: {fileID: 434770531}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: bulletTrail
-      value: 
-      objectReference: {fileID: 4154555351280370748, guid: fc59e5fc6d7511d488e245c71b668186, type: 3}
     - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
       propertyPath: targetingIcon
       value: 
@@ -5556,42 +5500,6 @@ PrefabInstance:
       propertyPath: targetGoBackTo
       value: 
       objectReference: {fileID: 1294135190}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: shieldRegainTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: gunDelayValues.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: gunDelayValues.Array.data[1]
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: gunDelayValues.Array.data[2]
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: gunDelayValues.Array.data[3]
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: shieldRankValues.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: shieldRankValues.Array.data[1]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: shieldRankValues.Array.data[2]
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106851321493795780, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
-      propertyPath: shieldRankValues.Array.data[3]
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 3400405283070330168, guid: 224d33b29857eac4b9c497ca7f1f5375, type: 3}
       propertyPath: m_Name
       value: Ship

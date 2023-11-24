@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 727158386645028066}
   - component: {fileID: 1676903658981971628}
   m_Layer: 0
-  m_Name: Focus
+  m_Name: FocusPuller
   m_TagString: InteractZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
